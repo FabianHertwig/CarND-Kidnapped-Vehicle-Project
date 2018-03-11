@@ -9,6 +9,8 @@
 #ifndef PARTICLE_FILTER_H_
 #define PARTICLE_FILTER_H_
 
+static const double MINIMAL_YAW_RATE = 0.0001;
+
 #include "helper_functions.h"
 
 struct Particle {
@@ -37,7 +39,7 @@ class ParticleFilter {
 	
 	// Vector of weights of all particles
 	std::vector<double> weights;
-	
+
 public:
 	
 	// Set of current particles
@@ -45,7 +47,7 @@ public:
 
 	// Constructor
 	// @param num_particles Number of particles
-	ParticleFilter() : num_particles(0), is_initialized(false) {}
+	ParticleFilter() : num_particles(100), is_initialized(false) {}
 
 	// Destructor
 	~ParticleFilter() {}
@@ -78,7 +80,7 @@ public:
 	 * @param predicted Vector of predicted landmark observations
 	 * @param observations Vector of landmark observations
 	 */
-	void dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations);
+	std::vector<LandmarkObs> dataAssociation(std::vector<LandmarkObs> predicted, std::vector<LandmarkObs>& observations);
 	
 	/**
 	 * updateWeights Updates the weights for each particle based on the likelihood of the 
